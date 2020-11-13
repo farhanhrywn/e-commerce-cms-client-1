@@ -1,5 +1,6 @@
 <template>
   <div class='login'>
+    <h1>Hacktiv Store</h1>
       <LoginForm/>
   </div>
 </template>
