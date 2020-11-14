@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-      <Nav/>
+      <Nav></Nav>
       <ListProduct/>
   </div>
 </template>

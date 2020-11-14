@@ -1,10 +1,11 @@
 <template>
+    <div>
       <div class="container">
-        <div class="d-flex justify-content-center align-items-center" style="height: 50vh;">
-          <div class="card" style="width: 100%;">
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="card">
             <div class="card-body">
               <h5 class="card-title" style="justify-self: center;">Your Product</h5>
-              <table class="table table-striped">
+              <table class="table table-striped" style="width: 1000px;">
                 <thead>
                   <tr>
                     <th scope="col">Name</th>
@@ -17,7 +18,7 @@
                 <tbody>
                     <tr v-for="product in products" :key="product.id">
                         <td>{{product.name}}</td>
-                        <td>{{product.image_url}}</td>
+                        <td><img :src="product.image_url" alt="image product" height="150px"></td>
                         <td>{{product.price}}</td>
                         <td>{{product.stock}}</td>
                         <td>
@@ -30,16 +31,17 @@
             </div>
           </div>
         </div>
+    </div>
       </div>
 </template>
 
 <script>
+// import Nav from '@/components/Nav.vue'
 export default {
   name: 'ListProduct',
   methods: {
     fetchProduct () {
-      const AccessToken = localStorage.getItem('access_token')
-      this.$store.dispatch('fetchProducts', AccessToken)
+      this.$store.dispatch('fetchProducts')
     }
   },
   created () {

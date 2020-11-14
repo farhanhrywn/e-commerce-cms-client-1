@@ -27,7 +27,6 @@ export default {
   name: 'LoginForm',
   data () {
     return {
-      logo: '../assets/undraw_Login_re_4vu2.png',
       email: '',
       password: ''
     }

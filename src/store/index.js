@@ -33,15 +33,47 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    fetchProducts (context, AccessToken) {
+    fetchProducts (context) {
       // console.log(AccessToken)
+      const AccessToken = localStorage.getItem('access_token')
       axios({
         url: '/product',
         method: 'GET',
         headers: { AccessToken }
       })
         .then(({ data }) => {
-          context.commit('setProduct', data)
+          context.commit('setProducts', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    logout (context) {
+      localStorage.removeItem('access_token')
+      router.push('/')
+    },
+    toAddPage (context) {
+      router.push('add')
+    },
+    toHomePage (context) {
+      router.push('home')
+    },
+    addProduct (context, payload) {
+      const AccessToken = localStorage.getItem('access_token')
+      axios({
+        url: '/product/create',
+        method: 'POST',
+        headers: { AccessToken },
+        data: {
+          name: payload.name,
+          image_url: payload.image_url,
+          price: payload.price,
+          stock: payload.stock
+        }
+      })
+        .then(({ data }) => {
+          context.dispatch('fetchProducts')
+          router.push('home')
         })
         .catch(err => {
           console.log(err)

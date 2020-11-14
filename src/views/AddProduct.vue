@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Nav/>
-    <FormAdd/>
+    <Nav></Nav>
+    <FormAdd></FormAdd>
   </div>
 </template>
 
