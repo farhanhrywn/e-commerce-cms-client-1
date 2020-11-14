@@ -22,3 +22,9 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### heroku deploy
+https://hacktiv-store.herokuapp.com
+
+### firebase deploy
+https://hacktiv-store.web.app
