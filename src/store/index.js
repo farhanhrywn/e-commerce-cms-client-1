@@ -8,11 +8,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     title: 'Hacktiv Store',
-    products: []
+    products: [],
+    product: []
   },
   mutations: {
     setProducts (state, data) {
       state.products = data
+    },
+    findProduct (state, data) {
+      state.product = data
     }
   },
   actions: {
@@ -63,6 +67,57 @@ export default new Vuex.Store({
       axios({
         url: '/product/create',
         method: 'POST',
+        headers: { AccessToken },
+        data: {
+          name: payload.name,
+          image_url: payload.image_url,
+          price: payload.price,
+          stock: payload.stock
+        }
+      })
+        .then(({ data }) => {
+          context.dispatch('fetchProducts')
+          router.push('home')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    deleteProduct (context, id) {
+      const AccessToken = localStorage.getItem('access_token')
+      axios({
+        url: `/product/delete/${id}`,
+        method: 'DELETE',
+        headers: { AccessToken }
+      })
+        .then(({ data }) => {
+          router.push('home')
+          context.dispatch('fetchProducts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    editProduct (context, id) {
+      const AccessToken = localStorage.getItem('access_token')
+      axios({
+        url: `/product/edit/${id}`,
+        method: 'GET',
+        headers: { AccessToken }
+      })
+        .then(({ data }) => {
+          context.commit('findProduct', data)
+          router.push('edit')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    updateProduct (context, payload) {
+      const AccessToken = localStorage.getItem('access_token')
+      axios({
+        url: `/product/update/${payload.id}`,
+        method: 'PUT',
         headers: { AccessToken },
         data: {
           name: payload.name,

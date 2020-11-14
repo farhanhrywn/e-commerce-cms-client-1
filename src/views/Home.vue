@@ -1,7 +1,7 @@
 <template>
   <div class="home">
       <Nav></Nav>
-      <ListProduct/>
+      <ListProduct></ListProduct>
   </div>
 </template>
 
@@ -19,6 +19,14 @@ export default {
   },
   components: {
     ListProduct, Nav
+  },
+  created () {
+    if (localStorage.getItem('access_token')) {
+      this.$router.push('home')
+      this.$store.dispatch('fetchProducts')
+    } else {
+      this.$router.push('/')
+    }
   }
 }
 </script>

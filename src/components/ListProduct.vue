@@ -22,8 +22,8 @@
                         <td>{{product.price}}</td>
                         <td>{{product.stock}}</td>
                         <td>
-                            <button class="btn btn-primary text-white mr-3" style="background-color: #42b0f8;"> Edit</button>
-                            <button class="btn btn-primary text-white" style="background-color: #42b0f8;"> Delete</button>
+                            <button class="btn btn-primary text-white mr-3" style="background-color: #42b0f8;" @click="editProduct(product.id)"> Edit</button>
+                            <button class="btn btn-primary text-white" style="background-color: #42b0f8;" @click="deleteProduct(product.id)"> Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -42,6 +42,12 @@ export default {
   methods: {
     fetchProduct () {
       this.$store.dispatch('fetchProducts')
+    },
+    deleteProduct (id) {
+      this.$store.dispatch('deleteProduct', id)
+    },
+    editProduct (id) {
+      this.$store.dispatch('editProduct', id)
     }
   },
   created () {

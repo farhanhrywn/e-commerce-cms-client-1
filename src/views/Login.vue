@@ -17,6 +17,14 @@ export default {
     title () {
       return this.$store.state.title
     }
+  },
+  created () {
+    if (localStorage.getItem('access_token')) {
+      this.$router.push('home')
+      this.$store.dispatch('fetchProducts')
+    } else {
+      this.$router.push('/')
+    }
   }
 }
 </script>
