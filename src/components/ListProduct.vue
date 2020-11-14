@@ -15,11 +15,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Ini nama product</td>
-                        <td>Ini foto product</td>
-                        <td>Ini harga product</td>
-                        <td>Ini stock product</td>
+                    <tr v-for="product in products" :key="product.id">
+                        <td>{{product.name}}</td>
+                        <td>{{product.image_url}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.stock}}</td>
                         <td>
                             <button class="btn btn-primary text-white mr-3" style="background-color: #42b0f8;"> Edit</button>
                             <button class="btn btn-primary text-white" style="background-color: #42b0f8;"> Delete</button>
@@ -35,7 +35,21 @@
 
 <script>
 export default {
-  name: 'ListProduct'
+  name: 'ListProduct',
+  methods: {
+    fetchProduct () {
+      const AccessToken = localStorage.getItem('access_token')
+      this.$store.dispatch('fetchProducts', AccessToken)
+    }
+  },
+  created () {
+    this.fetchProduct()
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  }
 }
 </script>
 

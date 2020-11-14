@@ -1,6 +1,6 @@
 <template>
   <div class='login'>
-    <h1>Hacktiv Store</h1>
+    <h1>{{ title }} </h1>
       <LoginForm/>
   </div>
 </template>
@@ -12,8 +12,12 @@ export default {
   name: 'Login',
   components: {
     LoginForm
+  },
+  computed: {
+    title () {
+      return this.$store.state.title
+    }
   }
-
 }
 </script>
 

@@ -13,7 +13,8 @@ export default {
   name: 'Home',
   data () {
     return {
-      logo: '../assets/logo.png'
+      logo: '../assets/logo.png',
+      products: []
     }
   },
   components: {
