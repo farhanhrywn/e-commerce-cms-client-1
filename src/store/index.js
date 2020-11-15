@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../config/axios'
 import router from '../router/index'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -34,11 +35,14 @@ export default new Vuex.Store({
           router.push('home')
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Sorry...',
+            text: err.response.data.message
+          })
         })
     },
     fetchProducts (context) {
-      // console.log(AccessToken)
       const AccessToken = localStorage.getItem('access_token')
       axios({
         url: '/product',
@@ -71,32 +75,57 @@ export default new Vuex.Store({
         data: {
           name: payload.name,
           image_url: payload.image_url,
-          price: payload.price,
-          stock: payload.stock
+          price: +payload.price,
+          stock: +payload.stock
         }
       })
         .then(({ data }) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Done',
+            text: 'Product added'
+          })
           context.dispatch('fetchProducts')
           router.push('home')
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Sorry...',
+            text: err.response.data.message
+          })
         })
     },
     deleteProduct (context, id) {
-      const AccessToken = localStorage.getItem('access_token')
-      axios({
-        url: `/product/delete/${id}`,
-        method: 'DELETE',
-        headers: { AccessToken }
+      Swal.fire({
+        text: 'Are you sure to delete this product ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Product deleted',
+            icon: 'success'
+          })
+          const AccessToken = localStorage.getItem('access_token')
+          axios({
+            url: `/product/delete/${id}`,
+            method: 'DELETE',
+            headers: { AccessToken }
+          })
+            .then(({ data }) => {
+              router.push('home')
+              context.dispatch('fetchProducts')
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        }
       })
-        .then(({ data }) => {
-          router.push('home')
-          context.dispatch('fetchProducts')
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
     editProduct (context, id) {
       const AccessToken = localStorage.getItem('access_token')
@@ -122,16 +151,25 @@ export default new Vuex.Store({
         data: {
           name: payload.name,
           image_url: payload.image_url,
-          price: payload.price,
-          stock: payload.stock
+          price: +payload.price,
+          stock: +payload.stock
         }
       })
         .then(({ data }) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Done',
+            text: 'Product updated'
+          })
           context.dispatch('fetchProducts')
           router.push('home')
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Sorry...',
+            text: err.response.data.message
+          })
         })
     }
   },
