@@ -43,11 +43,9 @@ export default new Vuex.Store({
         })
     },
     fetchProducts (context) {
-      const AccessToken = localStorage.getItem('access_token')
       axios({
         url: '/product',
         method: 'GET',
-        headers: { access_token: AccessToken }
       })
         .then(({ data }) => {
           context.commit('setProducts', data)
