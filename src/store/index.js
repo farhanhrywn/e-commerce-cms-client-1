@@ -47,7 +47,7 @@ export default new Vuex.Store({
       axios({
         url: '/product',
         method: 'GET',
-        headers: { AccessToken }
+        headers: { access_token: AccessToken }
       })
         .then(({ data }) => {
           context.commit('setProducts', data)
@@ -71,7 +71,7 @@ export default new Vuex.Store({
       axios({
         url: '/product',
         method: 'POST',
-        headers: { AccessToken },
+        headers: { access_token: AccessToken },
         data: {
           name: payload.name,
           image_url: payload.image_url,
@@ -115,7 +115,7 @@ export default new Vuex.Store({
           axios({
             url: `/product/${id}`,
             method: 'DELETE',
-            headers: { AccessToken }
+            headers: { access_token: AccessToken }
           })
             .then(({ data }) => {
               router.push('home')
@@ -132,7 +132,7 @@ export default new Vuex.Store({
       axios({
         url: `/product/${id}`,
         method: 'GET',
-        headers: { AccessToken }
+        headers: { access_token: AccessToken }
       })
         .then(({ data }) => {
           context.commit('findProduct', data)
@@ -147,7 +147,7 @@ export default new Vuex.Store({
       axios({
         url: `/product/${payload.id}`,
         method: 'PUT',
-        headers: { AccessToken },
+        headers: { access_token: AccessToken },
         data: {
           name: payload.name,
           image_url: payload.image_url,
