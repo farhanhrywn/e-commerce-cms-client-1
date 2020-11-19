@@ -69,7 +69,7 @@ export default new Vuex.Store({
     addProduct (context, payload) {
       const AccessToken = localStorage.getItem('access_token')
       axios({
-        url: '/product/create',
+        url: '/product',
         method: 'POST',
         headers: { AccessToken },
         data: {
@@ -113,7 +113,7 @@ export default new Vuex.Store({
           })
           const AccessToken = localStorage.getItem('access_token')
           axios({
-            url: `/product/delete/${id}`,
+            url: `/product/${id}`,
             method: 'DELETE',
             headers: { AccessToken }
           })
@@ -130,7 +130,7 @@ export default new Vuex.Store({
     editProduct (context, id) {
       const AccessToken = localStorage.getItem('access_token')
       axios({
-        url: `/product/edit/${id}`,
+        url: `/product/${id}`,
         method: 'GET',
         headers: { AccessToken }
       })
@@ -145,7 +145,7 @@ export default new Vuex.Store({
     updateProduct (context, payload) {
       const AccessToken = localStorage.getItem('access_token')
       axios({
-        url: `/product/update/${payload.id}`,
+        url: `/product/${payload.id}`,
         method: 'PUT',
         headers: { AccessToken },
         data: {
