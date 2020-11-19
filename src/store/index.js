@@ -45,7 +45,7 @@ export default new Vuex.Store({
     fetchProducts (context) {
       axios({
         url: '/product',
-        method: 'GET',
+        method: 'GET'
       })
         .then(({ data }) => {
           context.commit('setProducts', data)
